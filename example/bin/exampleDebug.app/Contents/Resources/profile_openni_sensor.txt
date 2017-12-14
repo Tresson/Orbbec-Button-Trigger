@@ -1,0 +1,52 @@
+sorted list                                                    calls       self time      total time
+<unprofiled>                                                     0.0      6 ms   48%     18 ms  148%
+oni_stream_end_write                                             1.0     12 ms   96%     12 ms   96%
+on_read                                                          1.0    484 us    4%     12 ms  100%
+streamset_read                                                   0.9     20 us    0%     12 ms  100%
+temp_update                                                      0.9      6 us    0%     12 ms  100%
+oni_stream_readFrame                                             1.0      2 us    0%      2 us    0%
+read_streams                                                     0.9    814 ns    0%     12 ms  100%
+~oni_adapter_plugin                                              0.1    100 ns    0%    100 ns    0%
+on_new_buffer                                                    1.0     25 ns    0%     25 ns    0%
+on_stop                                                          0.0      0 ns    0%      0 ns    0%
+on_start                                                         0.0      0 ns    0%      0 ns    0%
+open                                                             0.0      0 ns    0%      0 ns    0%
+init_openni                                                      0.0      0 ns    0%      0 ns    0%
+on_open                                                          0.0      0 ns    0%      0 ns    0%
+open_sensor_streams                                              0.0      0 ns    0%      0 ns    0%
+device_streamset                                                 0.0      0 ns    0%      0 ns    0%
+on_connection_added                                              0.0      0 ns    0%      0 ns    0%
+onDeviceConnected                                                0.0      0 ns    0%      0 ns    0%
+on_open                                                          0.0      0 ns    0%      0 ns    0%
+refresh_conversion_cache                                         0.0      0 ns    0%      0 ns    0%
+on_get_parameter                                                 0.0      0 ns    0%      0 ns    0%
+depthstream                                                      0.0      0 ns    0%      0 ns    0%
+devicestream                                                     0.0      0 ns    0%      0 ns    0%
+stream                                                           0.0      0 ns    0%      0 ns    0%
+
+call tree                                                      calls       self time      total time
+<unprofiled>                                                     0.0      6 ms   48%     18 ms  148%
+  init_openni                                                    0.0      0 ns    0%      0 ns    0%
+    onDeviceConnected                                            0.0      0 ns    0%      0 ns    0%
+      device_streamset                                           0.0      0 ns    0%      0 ns    0%
+      open                                                       0.0      0 ns    0%      0 ns    0%
+        open_sensor_streams                                      0.0      0 ns    0%      0 ns    0%
+          stream                                                 0.0      0 ns    0%      0 ns    0%
+          devicestream                                           0.0      0 ns    0%      0 ns    0%
+          on_open                                                0.0      0 ns    0%      0 ns    0%
+          depthstream                                            0.0      0 ns    0%      0 ns    0%
+          on_open                                                0.0      0 ns    0%      0 ns    0%
+            refresh_conversion_cache                             0.0      0 ns    0%      0 ns    0%
+  on_connection_added                                            0.0      0 ns    0%      0 ns    0%
+  on_start                                                       0.0      0 ns    0%      0 ns    0%
+  on_stop                                                        0.0      0 ns    0%      0 ns    0%
+  temp_update                                                    0.9      6 us    0%     12 ms  100%
+    read_streams                                                 0.9    814 ns    0%     12 ms  100%
+      streamset_read                                             0.9     20 us    0%     12 ms  100%
+        on_read                                                  1.0    484 us    4%     12 ms  100%
+          oni_stream_readFrame                                   1.0      2 us    0%      2 us    0%
+          on_new_buffer                                          1.0     25 ns    0%     25 ns    0%
+          oni_stream_end_write                                   1.0     12 ms   96%     12 ms   96%
+            on_get_parameter                                     0.0      0 ns    0%      0 ns    0%
+  ~oni_adapter_plugin                                            0.1    100 ns    0%    100 ns    0%
+
