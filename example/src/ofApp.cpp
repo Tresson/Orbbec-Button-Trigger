@@ -2,7 +2,7 @@
 #include "ofApp.h"
 
 //ofRectangle myRect (0,0, 100, 100);
-//int stageLengths[] = {2,2};
+int stageLengths[] = {2,2,3,10};
 
 //------------------------------------------------------------------------
 void ofApp::setup(){
@@ -39,15 +39,32 @@ void ofApp::update(){
     
     for (auto& hand : astra.getHandsDepth()) {
         auto& pos = hand.second;
-    
-        //timer += ofGetLastFrameTime();
         if(pos.x > 50 && pos.x < 150 && pos.y > 50 && pos.y < 150) {
-            // if(timer >= stageLengths[stage]) {
             stage = 1;
-            //  timer = 0;
-            // }
+           // timer = 0;
+           // }
+        }else {
+            stage = 0;
         }
     }
+    
+    for (auto& hand : astra.getHandsWorld()) {
+        auto& pos = hand.second;
+        if(pos.x > 50 && pos.x < 150 && pos.y > 50 && pos.y < 150) {
+            if (pos.z < 800){
+            stage = 2;
+            }
+        }
+    }
+
+    timer += ofGetLastFrameTime();
+     //if(timer >= stageLengths[stage]) {
+    if(timer >= 45) {
+         stage = 3;
+     }
+
+
+
 
 	if (astra.isFrameNew() && bDrawPointCloud) {
 		mesh.clear();
@@ -91,11 +108,54 @@ void ofApp::draw(){
         ofSetColor(0, 0, 255);
         ofDrawRectangle(ofGetWidth()/2.0-100, ofGetHeight()/2.0-100, 100, 100);
     }
+   else if (stage == 2){
+       ofSetColor(255, 0, 0);
+       ofDrawRectangle(ofGetWidth()/2.0-100, ofGetHeight()/2.0-100, 100, 100);
+   }
+   else if (stage == 3){
+       if (!bDrawPointCloud) {
+           ofSetColor(255);
+           astra.drawDepth(0, 0, ofGetWidth(), ofGetHeight());
+           //astra.draw(640, 0);
+           
+           for (auto& hand : astra.getHandsDepth()) {
+               auto& pos = hand.second;
+               ofSetColor(255, 0, 0);
+               ofDrawCircle(pos, 10);
+               //cursor.draw (pos);
+               stringstream ss;
+               ss << "id: " << hand.first << endl;
+               ss << "pos: " << hand.second;
+               ofDrawBitmapStringHighlight(ss.str(), pos.x, pos.y - 30);
+           }
+       } else {
+           cam.begin();
+           ofEnableDepthTest();
+           ofRotateY(180);
+           ofScale(1.5, 1.5);
+           
+           mesh.draw();
+           
+           
+           for (auto& hand : astra.getHandsWorld()) {
+               auto& pos = hand.second;
+               ofSetColor(ofColor::white);
+               ofDrawCircle(pos, 10);
+               stringstream ss;
+               ss << "id: " << hand.first << endl;
+               ss << "pos: " << hand.second;
+               ofDrawBitmapString(ss.str(), pos.x, pos.y - 30, pos.z);
+           }
+           
+           ofDisableDepthTest();
+           cam.end();
+       }
     
+   }
     
 	if (!bDrawPointCloud) {
 		ofSetColor(255);
-       astra.drawDepth(0, 0, ofGetWidth(), ofGetHeight());
+       //astra.drawDepth(0, 0, ofGetWidth(), ofGetHeight());
         //astra.draw(640, 0);
 
 		for (auto& hand : astra.getHandsDepth()) {
@@ -145,7 +205,7 @@ void ofApp::draw(){
 //    ofSetColor(ofColor::white);
 //    ofDrawBitmapStringHighlight(ss.str(), 20, 500);
     
-
+   
 
 }
 //------------------------------------------------------------------------
